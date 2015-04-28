@@ -25,11 +25,12 @@ var yAxis = d3.svg.axis()
 //  .tickFormat(fmtPercent);//MARIANO
 
 //MARIANO:
-//var mytip = d3.tip()
-//	.attr('class', 'd3-tip')
-//	.html(function(d){ 
-//		return "<strong>Boom:</strong> <span style='color:red'>" + d + "</span>"; 
-//	});
+//just the TIP
+var mytip = d3.tip()
+	.attr('class', 'd3-tip')
+	.html(function(d){ 
+		return "<p><b>" + d.username + "</b></p> <p><b style='color:red'>" + d.counts.media + "</b> Photos on IG</p>"; 
+	});
 
 //create svg
 var svg = d3.select("body").append("svg")
@@ -39,7 +40,7 @@ var svg = d3.select("body").append("svg")
   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
  
   
-//svg.call(mytip);//MARIANO:
+svg.call(mytip);//MARIANO:
 
   
 //get json object which contains media counts
@@ -85,7 +86,9 @@ d3.json('/igMediaCounts', function(error, data) {
     .attr("x", function(d) { return scaleX(d.username); })
     .attr("width", scaleX.rangeBand())
     .attr("y", function(d) { return scaleY(d.counts.media); })
-    .attr("height", function(d) { return height - scaleY(d.counts.media); });
+    .attr("height", function(d) { return height - scaleY(d.counts.media); })
+    .on('mouseover', mytip.show)
+    .on('mouseout', mytip.hide);
     
   //MARIANO:  
   /*
@@ -137,7 +140,7 @@ function sortGraph(){
 	.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 	
   //MARIANO:	
-  //svg.call(mytip);//MARIANO:
+  svg.call(mytip);//MARIANO:
 
 		
   //set domain of x to be all the usernames contained in the data
@@ -177,7 +180,9 @@ function sortGraph(){
     .attr("x", function(d) { return scaleX(d.username); })
     .attr("width", scaleX.rangeBand())
     .attr("y", function(d) { return scaleY(d.counts.media); })
-    .attr("height", function(d) { return height - scaleY(d.counts.media); });
+    .attr("height", function(d) { return height - scaleY(d.counts.media); })
+    .on('mouseover', mytip.show)
+    .on('mouseout', mytip.hide);
 	
 }//close sortGraph()
 
