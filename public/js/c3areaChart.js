@@ -1,9 +1,9 @@
 (function() {
   $.getJSON( '/igMediaCounts' )
     .done(function( data ) {
-      var numPhotos = data.users.map(function(item){
+      var followedBy = data.users.map(function(item){
         
-        return item.counts.media; //number of posts/photos
+        return item.counts.followed_by; //number of posts/photos
       });//close .map()
       
       var following = data.users.map(function(item) {
@@ -11,14 +11,14 @@
 	  });//close .map()
       
       
-      numPhotos.unshift('Number of Photos');
+      followedBy.unshift('Followed By');
       following.unshift('Following');
 
       var chart = c3.generate({
         bindto: '#chart',
         data: {
           columns: [
-            numPhotos,
+            followedBy,
             following 
           ],
           type: 'area-spline'
