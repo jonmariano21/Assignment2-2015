@@ -1,7 +1,9 @@
 (function() {
   $.getJSON( '/igMediaCounts')
     .done(function( data ) {
+      
       var yCounts = data.users.map(function(item){
+        console.log("item " + item);
         return item.counts.media;
       });
       
@@ -13,6 +15,7 @@
           columns: [
             yCounts 
           ]
+          //type: 'spline' //to make as a spline chart instead of pointy lines
         }
       });
     });

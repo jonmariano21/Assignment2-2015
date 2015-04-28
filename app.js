@@ -151,7 +151,8 @@ app.get('/account', ensureAuthenticated, function(req, res){
   res.render('account', {user: req.user});
 });
 
-app.get('/igphotos', ensureAuthenticatedInstagram, function(req, res){
+//MARIANO: originally was '/igphotos' instead of'/photos' but wouldnt render IG photos...
+app.get('/photos', ensureAuthenticatedInstagram, function(req, res){
   var query  = models.User.where({ ig_id: req.user.ig_id });
   query.findOne(function (err, user) {
     if (err) return err;
@@ -169,7 +170,7 @@ app.get('/igphotos', ensureAuthenticatedInstagram, function(req, res){
             //insert json object into image array
             return tempJSON;
           });
-          res.render('photos', {photos: imageArr});
+          res.render('photos', {photos: imageArr, user: req.user});
         }
       }); 
     }
@@ -216,6 +217,61 @@ app.get('/igMediaCounts', ensureAuthenticatedInstagram, function(req, res){
   });
 });
 
+
+/////////////////////////////////// IG FOLLOWS /////////////////////////////////////////
+/*
+app.get('/igFollows', ensureAuthenticatedInstagram, function(req, res){
+  var query  = models.User.where({ ig_id: req.user.ig_id });
+  query.findOne(function (err, user) {
+    if (err) return err;
+    if (user) {
+      Instagram.users.follows({ 
+        user_id: user.ig_id,
+        access_token: user.ig_access_token,
+        complete: function(data) {
+          // an array of asynchronous functions
+          var asyncTasks = [];
+          var mediaCounts = [];
+           
+          data.forEach(function(item){
+            asyncTasks.push(function(callback){
+              // asynchronous function!
+              Instagram.users.info({ 
+                  user_id: item.id,
+                  access_token: user.ig_access_token,
+                  complete: function(data) {
+                    mediaCounts.push(data);
+                    callback();
+                  }
+                });            
+            });
+          });
+          
+          // Now we have an array of functions, each containing an async task
+          // Execute all async tasks in the asyncTasks array
+          async.parallel(asyncTasks, function(err){
+            // All tasks are done now
+            if (err) return err;
+            return res.json({users: mediaCounts});        
+          });
+        }
+      });   
+    }
+  });
+});
+*/
+////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+/////////////////////////////////// IG FOLLOWED BY /////////////////////////////////////
+
+
+////////////////////////////////////////////////////////////////////////////////////////
+
+
+
 app.get('/visualization', ensureAuthenticatedInstagram, function (req, res){
   res.render('visualization');
 }); 
@@ -224,6 +280,13 @@ app.get('/visualization', ensureAuthenticatedInstagram, function (req, res){
 app.get('/c3visualization', ensureAuthenticatedInstagram, function (req, res){
   res.render('c3visualization');
 }); 
+
+
+//C3JS - AREA CHART
+app.get('/c3areaChart', ensureAuthenticatedInstagram, function (req, res){
+  res.render('c3areaChart');
+}); 
+
 
 app.get('/auth/instagram',
   passport.authenticate('instagram'),
@@ -235,7 +298,7 @@ app.get('/auth/instagram',
 app.get('/auth/instagram/callback', 
   passport.authenticate('instagram', { failureRedirect: '/login'}),
   function(req, res) {
-    res.redirect('/account');
+    res.redirect('/account');//MARIANO: originally was '/account' instead of '/photos'
   });
 
 app.get('/logout', function(req, res){
