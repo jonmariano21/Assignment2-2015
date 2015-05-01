@@ -1,3 +1,6 @@
+/*body{
+  font: 10px sans-serif;
+}*/
 
 .bar2 rect {
   fill: pink;
@@ -6,7 +9,6 @@
 rect:hover {
   fill: purple;
 }
-
 
 .bar2 text.value {
   fill: grey;
