@@ -2,12 +2,12 @@ body {
   font: 10px sans-serif;
 }
 
-.bar rect {
-  fill: orange;
+.bar2 rect {
+  fill: pink;
 }
 
-.bar text.value {
-  fill: white;
+.bar2 text.value {
+  fill: grey;
 }
 
 .axis {

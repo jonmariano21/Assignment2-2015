@@ -13,11 +13,22 @@ var x = d3.scale.linear().range([0, w]),
 var xAxis = d3.svg.axis().scale(x).orient("top").tickSize(-h),
     yAxis = d3.svg.axis().scale(y).orient("left").tickSize(0);
 
+
+var mytip = d3.tip()
+	.attr('class', 'd3-tip')
+	.html(function(d){ 
+		return "<p><b>" + d.username + "</b></p> <p><b style='color:red'>" + d.counts.media + "</b> Photos on IG</p>"; 
+	});
+
+
 var svg = d3.select("body").append("svg")
     .attr("width", w + m.right + m.left)
     .attr("height", h + m.top + m.bottom)
   .append("g")
     .attr("transform", "translate(" + m.left + "," + m.top + ")");
+
+svg.call(mytip);//MARIANO:
+
 
 d3.json("/igMediaCounts", function(error, data) {
 
@@ -34,10 +45,10 @@ d3.json("/igMediaCounts", function(error, data) {
 
 
 
-  var bar = svg.selectAll("g.bar")
+  var bar = svg.selectAll("g.bar2")
       .data(data.users)
     .enter().append("g")
-      .attr("class", "bar")
+      .attr("class", "bar2")
       .attr("transform", function(d) { return "translate(0," + y(d.username) + ")"; });
 
   bar.append("rect")
@@ -80,14 +91,15 @@ function sortGraph(){
   .append("g")
     .attr("transform", "translate(" + m.left + "," + m.top + ")");
 
+  svg.call(mytip);//MARIANO:
 
   x.domain([0, d3.max(igArray.users, function(d) { return d.counts.media; })]);
   y.domain(igArray.users.map(function(d) { return d.username; }));
 
-  var bar = svg.selectAll("g.bar")
+  var bar = svg.selectAll("g.bar2")
       .data(igArray.users)
     .enter().append("g")
-      .attr("class", "bar")
+      .attr("class", "bar2")
       .attr("transform", function(d) { return "translate(0," + y(d.username) + ")"; });
 
   bar.append("rect")
