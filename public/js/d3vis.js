@@ -49,7 +49,9 @@ d3.json("/igMediaCounts", function(error, data) {
       .data(data.users)
     .enter().append("g")
       .attr("class", "bar2")
-      .attr("transform", function(d) { return "translate(0," + y(d.username) + ")"; });
+      .attr("transform", function(d) { return "translate(0," + y(d.username) + ")"; })
+      .on('mouseover', mytip.show)
+	  .on('mouseout', mytip.hide);
 
   bar.append("rect")
       .attr("width", function(d) { return x(d.counts.media); })
@@ -100,7 +102,9 @@ function sortGraph(){
       .data(igArray.users)
     .enter().append("g")
       .attr("class", "bar2")
-      .attr("transform", function(d) { return "translate(0," + y(d.username) + ")"; });
+      .attr("transform", function(d) { return "translate(0," + y(d.username) + ")"; })
+      .on('mouseover', mytip.show)
+	  .on('mouseout', mytip.hide);
 
   bar.append("rect")
       .attr("width", function(d) { return x(d.counts.media); })

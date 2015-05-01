@@ -6,6 +6,10 @@ body {
   fill: pink;
 }
 
+.bar2:hover {
+  fill: purple;
+}
+
 .bar2 text.value {
   fill: grey;
 }
