@@ -130,6 +130,8 @@ d3.json('/igMediaCounts', function(error, data) {
 
 function sortGraph(){
 	
+  document.getElementById("b").disabled = "true";
+	
   igArray.users.sort(function(a,b){ return (a.counts.media) - (b.counts.media) });
   d3.select("svg").remove();
 	
