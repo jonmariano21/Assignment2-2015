@@ -17,7 +17,7 @@ var xAxis = d3.svg.axis().scale(x).orient("top").tickSize(-h),
 var mytip = d3.tip()
 	.attr('class', 'd3-tip')
 	.html(function(d){ 
-		return "<p><b>" + d.username + "</b>is following</p> <p><b style='color:blue'>" + d.counts.follows + "</b> People on IG</p>"; 
+		return "<p><b>" + d.username + "</b> is following</p> <p><b style='color:blue'>" + d.counts.follows + "</b> People on IG</p>"; 
 	});
 
 
