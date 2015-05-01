@@ -17,7 +17,7 @@ var xAxis = d3.svg.axis().scale(x).orient("top").tickSize(-h),
 var mytip = d3.tip()
 	.attr('class', 'd3-tip')
 	.html(function(d){ 
-		return "<p><b>" + d.username + "</b></p> <p><b style='color:red'>" + d.counts.media + "</b> Photos on IG</p>"; 
+		return "<p><b>" + d.username + "</b> is following </p> <p><b style='color:blue'>" + d.counts.follows + "</b> People on IG</p>"; 
 	});
 
 
@@ -39,7 +39,7 @@ d3.json("/igMediaCounts", function(error, data) {
   //igArray.sort(function(a, b) { return b.counts.media - a.counts.media; });
 
   // Set the scale domain.
-  x.domain([0, d3.max(data.users, function(d) { return d.counts.media; })]);
+  x.domain([0, d3.max(data.users, function(d) { return d.counts.follows; })]);
   y.domain(data.users.map(function(d) { return d.username; }));
 
 
@@ -49,20 +49,22 @@ d3.json("/igMediaCounts", function(error, data) {
       .data(data.users)
     .enter().append("g")
       .attr("class", "bar2")
-      .attr("transform", function(d) { return "translate(0," + y(d.username) + ")"; });
+      .attr("transform", function(d) { return "translate(0," + y(d.username) + ")"; })
+      .on('mouseover', mytip.show)
+	  .on('mouseout', mytip.hide);
 
   bar.append("rect")
-      .attr("width", function(d) { return x(d.counts.media); })
+      .attr("width", function(d) { return x(d.counts.follows); })
       .attr("height", y.rangeBand());
 
   bar.append("text")
       .attr("class", "value")
-      .attr("x", function(d) { return x(d.counts.media); })
+      .attr("x", function(d) { return x(d.counts.follows); })
       .attr("y", y.rangeBand() / 2)
       .attr("dx", -3)
       .attr("dy", ".35em")
       .attr("text-anchor", "end")
-      .text(function(d) { return format(d.counts.media); });
+      .text(function(d) { return format(d.counts.follows); });
 
   svg.append("g")
       .attr("class", "x axis")
@@ -80,7 +82,7 @@ function sortGraph(){
 	
   document.getElementById("b").disabled = "true";
   	
-  igArray.users.sort(function(a,b){ return (b.counts.media) - (a.counts.media) });
+  igArray.users.sort(function(a,b){ return (b.counts.follows) - (a.counts.follows) });
   d3.select("svg").remove();
 
 
@@ -93,27 +95,29 @@ function sortGraph(){
 
   svg.call(mytip);//MARIANO:
 
-  x.domain([0, d3.max(igArray.users, function(d) { return d.counts.media; })]);
+  x.domain([0, d3.max(igArray.users, function(d) { return d.counts.follows; })]);
   y.domain(igArray.users.map(function(d) { return d.username; }));
 
   var bar = svg.selectAll("g.bar2")
       .data(igArray.users)
     .enter().append("g")
       .attr("class", "bar2")
-      .attr("transform", function(d) { return "translate(0," + y(d.username) + ")"; });
+      .attr("transform", function(d) { return "translate(0," + y(d.username) + ")"; })
+      .on('mouseover', mytip.show)
+	  .on('mouseout', mytip.hide);
 
   bar.append("rect")
-      .attr("width", function(d) { return x(d.counts.media); })
+      .attr("width", function(d) { return x(d.counts.follows); })
       .attr("height", y.rangeBand());
 
   bar.append("text")
       .attr("class", "value")
-      .attr("x", function(d) { return x(d.counts.media); })
+      .attr("x", function(d) { return x(d.counts.follows); })
       .attr("y", y.rangeBand() / 2)
       .attr("dx", -3)
       .attr("dy", ".35em")
       .attr("text-anchor", "end")
-      .text(function(d) { return format(d.counts.media); });
+      .text(function(d) { return format(d.counts.follows); });
 
   svg.append("g")
       .attr("class", "x axis")

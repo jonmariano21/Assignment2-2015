@@ -2,9 +2,14 @@ body {
   font: 10px sans-serif;
 }
 
+.bar2:hover {
+  fill: orange;
+}
+
 .bar2 rect {
   fill: pink;
 }
+
 
 .bar2 text.value {
   fill: grey;
