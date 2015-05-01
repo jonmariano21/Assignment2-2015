@@ -33,7 +33,7 @@ var mytip = d3.tip()
 	});
 
 //create svg
-var svg = d3.select("body").append("svg")
+var svg = d3.select("center").append("svg")
   .attr("width", width + margin.left + margin.right)
   .attr("height", height + margin.top + margin.bottom)
   .append("g")
@@ -135,7 +135,7 @@ function sortGraph(){
   igArray.users.sort(function(a,b){ return (a.counts.media) - (b.counts.media) });
   d3.select("svg").remove();
 	
-  var svg = d3.select("body").append("svg")
+  var svg = d3.select("center").append("svg")
 	.attr("width", width + margin.left + margin.right)
 	.attr("height", height + margin.top + margin.bottom)
 	.append("g")

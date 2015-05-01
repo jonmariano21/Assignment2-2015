@@ -21,7 +21,7 @@ var mytip = d3.tip()
 	});
 
 
-var svg = d3.select("body").append("svg")
+var svg = d3.select("center").append("svg")
     .attr("width", w + m.right + m.left)
     .attr("height", h + m.top + m.bottom)
   .append("g")
@@ -47,11 +47,11 @@ d3.json("/igMediaCounts", function(error, data) {
 
   var bar = svg.selectAll("g.bar2")
       .data(data.users)
-    .enter().append("g")
+      .enter().append("g")
       .attr("class", "bar2")
       .attr("transform", function(d) { return "translate(0," + y(d.username) + ")"; })
       .on('mouseover', mytip.show)
-	  .on('mouseout', mytip.hide);
+      .on('mouseout', mytip.hide);
 
   bar.append("rect")
       .attr("width", function(d) { return x(d.counts.media); })
@@ -87,7 +87,7 @@ function sortGraph(){
 
 
 
-  var svg = d3.select("body").append("svg")
+  var svg = d3.select("center").append("svg")
     .attr("width", w + m.right + m.left)
     .attr("height", h + m.top + m.bottom)
   .append("g")
