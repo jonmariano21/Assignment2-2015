@@ -17,11 +17,13 @@ var xAxis = d3.svg.axis().scale(x).orient("top").tickSize(-h),
 var mytip = d3.tip()
 	.attr('class', 'd3-tip')
 	.html(function(d){ 
+
 		return "<p><b>" + d.username + "</b> is following </p> <p><b style='color:blue'>" + d.counts.follows + "</b> People on IG</p>"; 
+
 	});
 
 
-var svg = d3.select("body").append("svg")
+var svg = d3.select("center").append("svg")
     .attr("width", w + m.right + m.left)
     .attr("height", h + m.top + m.bottom)
   .append("g")
@@ -31,6 +33,8 @@ svg.call(mytip);//MARIANO:
 
 
 d3.json("/igMediaCounts", function(error, data) {
+  var parent = document.getElementById("parent");
+  var child = document.getElementById("prog");
 
   igArray = data;
 
@@ -47,11 +51,11 @@ d3.json("/igMediaCounts", function(error, data) {
 
   var bar = svg.selectAll("g.bar2")
       .data(data.users)
-    .enter().append("g")
+      .enter().append("g")
       .attr("class", "bar2")
       .attr("transform", function(d) { return "translate(0," + y(d.username) + ")"; })
       .on('mouseover', mytip.show)
-	  .on('mouseout', mytip.hide);
+      .on('mouseout', mytip.hide);
 
   bar.append("rect")
       .attr("width", function(d) { return x(d.counts.follows); })
@@ -73,6 +77,8 @@ d3.json("/igMediaCounts", function(error, data) {
   svg.append("g")
       .attr("class", "y axis")
       .call(yAxis);
+
+  parent.remove(child);
 });
 
 
@@ -87,7 +93,7 @@ function sortGraph(){
 
 
 
-  var svg = d3.select("body").append("svg")
+  var svg = d3.select("center").append("svg")
     .attr("width", w + m.right + m.left)
     .attr("height", h + m.top + m.bottom)
   .append("g")
