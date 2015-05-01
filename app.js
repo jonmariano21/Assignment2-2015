@@ -182,6 +182,7 @@ app.get('/igMediaCounts', ensureAuthenticatedInstagram, function(req, res){
   query.findOne(function (err, user) {
     if (err) return err;
     if (user) {
+      //All the people that follow ME
       Instagram.users.follows({ 
         user_id: user.ig_id,
         access_token: user.ig_access_token,
@@ -274,6 +275,11 @@ app.get('/igFollows', ensureAuthenticatedInstagram, function(req, res){
 
 app.get('/visualization', ensureAuthenticatedInstagram, function (req, res){
   res.render('visualization');
+}); 
+
+//MARIANO:
+app.get('/d3vis', ensureAuthenticatedInstagram, function (req, res){
+  res.render('d3vis');
 }); 
 
 
