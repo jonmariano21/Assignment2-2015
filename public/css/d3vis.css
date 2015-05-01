@@ -1,12 +1,12 @@
-body .newd3{
+/*body{
   font: 10px sans-serif;
-}
+}*/
 
 .bar2 rect {
   fill: pink;
 }
 
-.bar2:hover {
+rect:hover {
   fill: purple;
 }
 

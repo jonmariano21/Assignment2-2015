@@ -28,10 +28,10 @@
       <link rel="stylesheet" type="text/css" href="css/c3.min.css">
       <link rel="stylesheet" type="text/css" href="css/visualization.css">
       <link rel="stylesheet" type="text/css" href="css/d3vis.css">
+      <link rel="stylesheet" type="text/css" href="css/spinner.css">
 </head>
 
 <body>
-
     <script src="https://code.jquery.com/jquery.js"></script>
     <script src="js/bootstrap.js"></script>
     <script src="js/d3.min.js"></script>
@@ -59,19 +59,7 @@
             </div><!--close navbar-header-->         
             
             <div class="navbar-collapse collapse">
-              <form class="navbar-form navbar-right" role="form"> 
-                
-                <button id="login" type="button"><a id="log"href="/auth/instagram"></a></button>
-                <script>
-                    var log = 0;
-                    if(log == 0){
-                      document.getElementById("log").innerHTML = "Login";
-                      log = 1;
-                    }
-                    else if (log == 1)
-                      document.getElementById("log").innerHTML = "Hi, {{user.name}}";
-                </script>
-              </form>             
+                          
   
             </div><!--close navbar-collapse--> 
 

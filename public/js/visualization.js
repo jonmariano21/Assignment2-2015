@@ -45,7 +45,10 @@ svg.call(mytip);//MARIANO:
   
 //get json object which contains media counts
 d3.json('/igMediaCounts', function(error, data) {
-
+  var parent = document.getElementById("parent");
+  var child = document.getElementById("prog");
+  
+  console.log("hello");
   igArray = data; 
   
   
@@ -73,7 +76,7 @@ d3.json('/igMediaCounts', function(error, data) {
     .call(yAxis)
     .append("text")
     .attr("transform", "rotate(-90)")
-    .attr("y", 6)
+    .attr("y", 9)
     .attr("dy", ".71em")
     .style("text-anchor", "end")
     .text("Number of Photos");
@@ -124,8 +127,7 @@ d3.json('/igMediaCounts', function(error, data) {
         .delay(delay);
   }
   */
-		
-	    
+  parent.remove(child);
 });//close d3.json
 
 function sortGraph(){
@@ -186,6 +188,7 @@ function sortGraph(){
     .on('mouseover', mytip.show)
     .on('mouseout', mytip.hide);
 	
+
 }//close sortGraph()
 
 
