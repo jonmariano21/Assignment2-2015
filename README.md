@@ -15,4 +15,4 @@ Application UI Design Principles:
 	- Simplicity Principle: When sorting the D3JS visualizations, the sort button only allows ONE click. The button is 
 		disabled after a single click and the user is no longer allowed to click on the button.
 		
-	
+	- Feedback Principle: Visual spinner when loading SVG visualization
